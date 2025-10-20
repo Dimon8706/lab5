@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8" /><title>Assign Operators</title></head>
+<body>
+<h1>Assign operators to request #[[${request.id}]]</h1>
+<p>User: <span th:text="${request.userName}"></span></p>
+<p>Course: <span th:text="${request.course != null ? request.course.name : '-'}"></span></p>
+<p>Price: <span th:text="${request.course != null ? request.course.price : '-'}"></span></p>
+
+<div th:if="${!request.handled}">
+    <form th:action="@{'/requests/' + ${request.id} + '/assign'}" method="post">
+        <div th:each="op : ${operators}">
+            <label><input type="checkbox" name="operatorIds" th:value="${op.id}"/> <span th:text="${op.name + ' ' + op.surname + ' ('+op.department+')'}"></span></label><br/>
+        </div>
+        <button type="submit">Assign</button>
+    </form>
+</div>
+
+<h3>Already assigned</h3>
+<ul>
+    <li th:each="op : ${request.operators}">
+        <span th:text="${op.name + ' ' + op.surname}"></span>
+        <form th:action="@{'/requests/' + ${request.id} + '/remove-operator'}" method="post" style="display:inline">
+            <input type="hidden" name="operatorId" th:value="${op.id}"/>
+            <button type="submit">Remove</button>
+        </form>
+    </li>
+</ul>
+
+<a th:href="@{/requests}">Back</a>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8" /><title>Operators</title></head>
+<body>
+<h1>Operators</h1>
+<a th:href="@{/operators/new}">New Operator</a>
+<table border="1">
+    <tr><th>ID</th><th>Name</th><th>Surname</th><th>Department</th></tr>
+    <tr th:each="o : ${operators}">
+        <td th:text="${o.id}"></td>
+        <td th:text="${o.name}"></td>
+        <td th:text="${o.surname}"></td>
+        <td th:text="${o.department}"></td>
+    </tr>
+</table>
+<a th:href="@{/requests}">Back to requests</a>
+</body>
+</html>

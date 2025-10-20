@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Requests</title>
+</head>
+<body>
+<h1>Requests</h1>
+<a th:href="@{/requests/new}">Create new request</a> |
+<a th:href="@{/operators}">Operators</a>
+<table border="1" cellpadding="6" cellspacing="0">
+    <thead>
+    <tr><th>ID</th><th>User</th><th>Phone</th><th>Course</th><th>Price</th><th>Handled</th><th>Operators</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
+    <tr th:each="r : ${requests}">
+        <td th:text="${r.id}"></td>
+        <td th:text="${r.userName}"></td>
+        <td th:text="${r.phone}"></td>
+        <td th:text="${r.course != null ? r.course.name : '-'}"></td>
+        <td th:text="${r.course != null ? r.course.price : '-'}"></td>
+        <td th:text="${r.handled}"></td>
+        <td>
+            <span th:each="op : ${r.operators}" th:text="${op.name + ' ' + op.surname}">Operator</span>
+        </td>
+        <td>
+            <a th:href="@{'/requests/' + ${r.id} + '/assign'}" th:if="${!r.handled}">Assign</a>
+            <span th:if="${r.handled}">Processed</span>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

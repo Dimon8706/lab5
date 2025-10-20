@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить заявку</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; }
+        .header { background-color: #008080; color: white; padding: 10px 20px; }
+        .header a { color: white; text-decoration: none; margin-right: 15px; }
+        .container { max-width: 600px; margin: 30px auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        label { display: block; margin-top: 10px; font-weight: bold; }
+        input[type="text"], select, textarea { width: 98%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; }
+        textarea { resize: vertical; height: 100px; }
+        .submit-button { background-color: #4CAF50; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <a href="/requests/all">CRM Система</a>
+    <a href="/requests/all">Все Заявки</a>
+    <a href="/requests/new">Новые Заявки</a>
+    <a href="/requests/handled">Обработанные заявки</a>
+    <a href="/requests/add">+ Добавить заявку</a>
+</div>
+
+<div class="container">
+    <h2>Добавить заявку</h2>
+
+    <form th:action="@{/requests/add}" th:object="${request}" method="post">
+
+        <label for="userName">ФИО:</label>
+        <input type="text" id="userName" th:field="*{userName}"
+               [cite_start]placeholder="Например, Ильяс Жуанышев" required> [cite: 19]
+
+        <label for="course">Курс:</label>
+        <select id="course" th:field="*{course}" required>
+            <option value="">Выберите курс...</option>
+            <option th:each="c : ${courses}"
+                    th:value="${c.id}"
+                    th:text="|${c.name} - ${c.price} USD|"
+            ></option> </select>
+
+        <label for="phone">Телефон:</label>
+        <input type="text" id="phone" th:field="*{phone}"
+               [cite_start]placeholder="Например, +77027777777" required> [cite: 23]
+
+        <label for="commentary">Комментарии:</label>
+        <textarea id="commentary" th:field="*{commentary}"
+                  [cite_start]placeholder="Например, Хотел спросить вас, а сколько будет длится сам курс?"></textarea> [cite: 25]
+
+        <button type="submit" class="submit-button">Добавить заявку</button> [cite: 26]
+
+    </form>
+</div>
+
+</body>
+</html>
